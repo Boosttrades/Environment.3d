@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Coastal FPS City"
+description = "A mobile-friendly first-person city exploration game set in an original, densely built coastal metropolis. Explore detailed procedural neighborhoods with walkable streets, varied buildings, trees, props, and responsive FPS controls."
+version = "1.0.0"
+id = "artifacts/coastal-fps-city"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25872
+
+[services.development]
+run = "pnpm --filter @workspace/coastal-fps-city run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/coastal-fps-city", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/coastal-fps-city/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25872"
+BASE_PATH = "/"
